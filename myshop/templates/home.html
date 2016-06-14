@@ -1,0 +1,108 @@
+{% extends 'index.html'%}
+
+{% block base %}
+{% load staticfiles %}
+
+<div class="container marketing">
+	<h2 class="itemsTitle">LATEST COLLECTION</h2>
+    <!-- Three columns of text below the carousel -->
+    <div class="row">
+    {% for product in products %}
+		<div class="col-lg-4">
+        {% for productimage in product.productimage %}
+          	<a href="{{ product.get_absolute_url }}"><img class="img-circle" src="{{ productimage.image.url }}" alt="{{product.title}}" style="width:170px; height:250px;"></a>
+        {% endfor %}
+          	<h5>{{product.title}}</h5>
+          	<p>{{product.description }}</p>
+          	<p>
+          	<form class='form' method='POST' action="{% url 'cart_add' product.slug %}"> {% csrf_token %}
+			<input class='btn btn-default' type='submit' value='&#8377; {{product.price}} Add to cart &raquo;'/></form>
+			</p>
+        </div><!-- /.col-lg-4 -->
+    {% endfor %}
+    </div><!-- /.row -->
+</div>
+	
+<div class="introSection">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="cntr">We are launching complete fashion dress's online store with lowest price. <br>special collection from &#8377;250- &#8377;2500</h1>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% for category in categorys %}
+<div class="container marketing">
+    <h2 class="itemsTitle">{{category.title}}</h2>
+	<div id="myCarousel1" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+	    <div class="carousel-inner">
+	    {% if category.subcategory_set.all %}
+		    {% for subcategory in category.subcategory_set.all %}
+		    	<div class="item {% if forloop.first %} active {% endif %}">
+			    <h4>{{subcategory.title}}</h4>
+			        <div class="row">
+			        {% if subcategory.product_set.all %}
+				        {% for product in subcategory.product_set.all %}
+				        	<div class="col-lg-4">
+				        	{% if product.productimage_set.all %}
+				        		{% for productimage in product.productimage_set.all %}
+				        			<a href="{{ product.get_absolute_url }}"><img src="{{ productimage.image.url }}" alt="{{product.title}}" style="width:150px; height:250px;"/></a>	
+				        		{% endfor %}
+				        	{% endif %}
+				          		<h5>{{product.title}}</h5>
+				          		<p>
+				          		<form class='form' method='POST' action="{% url 'cart_add' product.slug %}"> {% csrf_token %}
+			 	 				<input class='btn btn-default' type='submit' value='Add to cart &raquo;'/></form>
+			 	 				</p>
+				        	</div><!-- /.col-lg-4 -->
+						{% endfor %}
+					{% endif %}
+			      	</div><!-- /.row -->
+		        </div><!--item -->
+	        {% endfor %}
+	    {% endif %}
+	    </div>
+	<a class="left carousel-control" href="#myCarousel1" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+	<a class="right carousel-control" href="#myCarousel1" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+	</div><!-- /.carousel -->
+</div>
+{% endfor %}
+
+<div class="mainTitle">
+<div class="container ">
+<h4>FEATURED PRODUCTS</h4>
+</div>
+</div>
+
+<div class="highlightSection" >
+<div class="container">
+	<div class="row">
+		{% for pdt in p %}
+			{% for image in pdt.productimage %}
+				<div class="col-lg-4">
+					<div class="media">
+						<a href="{{ pdt.get_absolute_url }}"><img src="{{ image.image.url }}" alt="{{product.title}}"
+						style="width:150px; height:250px;"> </a>
+						<h4 class="media-heading text-primary-theme">{{pdt.title}}</h4>
+						<p>{{pdt.description}}</p>
+					</div>
+				</div>
+			{% endfor %}
+		{% endfor %}
+	</div>
+</div>
+</div>
+
+
+
+
+{% endblock %}
+
+
+
+
+
+

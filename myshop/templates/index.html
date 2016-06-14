@@ -1,0 +1,221 @@
+{% load staticfiles %}
+<!DOCTYPE html> 
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="{% static 'themes/assets/ico/favicon.ico' %}">
+    <title>myshop</title>
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'themes/dist/css/bootstrap.min.css'%}" rel="stylesheet">
+    <link href="{% static 'themes/dist/css/bootstrap-submenu.min.css' %}" rel="stylesheet">
+    <link href="{% static 'themes/assets/css/carousel.css' %}" rel="stylesheet">
+    <style >
+    	{% block styles %} {% endblock %}
+    </style>
+</head>
+
+<body>  
+    <!-- NAVBAR HERE================================================== -->
+    {% include 'navbar.html' %}
+    
+    <!-- Carousel
+    ================================================== -->
+    <div id="mainCarousel">
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="item active">
+          <script
+			src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false">
+			</script>
+			<script>
+			var myCenter=new google.maps.LatLng(11.2857255, 75.8154105);
+			var marker;
+			function initialize()
+			{
+			var mapProp = {
+			  center:myCenter,
+			  zoom:15,
+			  mapTypeId:google.maps.MapTypeId.ROADMAP
+			  };
+			var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+			marker=new google.maps.Marker({
+			  position:myCenter,
+			 // icon:'themes/assets/images/nepali-momo.png',
+			  animation:google.maps.Animation.BOUNCE
+			  });
+
+			marker.setMap(map);
+
+			// Info open
+			var infowindow = new google.maps.InfoWindow({
+			  content:"Hello World!"
+			  });
+
+			google.maps.event.addListener(marker, 'click', function() {
+			  infowindow.open(map,marker);
+			  });
+			}
+			google.maps.event.addDomListener(window, 'load', initialize);
+			</script>
+			<div id="googleMap" style="height:450px;"></div>
+			  <div class="container">
+				<div class="carousel-caption">
+				  <a class="btn btn-lg btn-default" href="#" role="button" style="font-size:2em">Order Online Now &raquo;</a>
+				</div>
+			  </div>
+			</div>
+		  </div>
+		</div><!-- /.carousel -->
+	</div>
+
+	<div class="mainTitle">
+	<div class="container">
+	<h1>Fashion World</h1>
+	<p>
+	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy 
+	</p>
+	</div>
+	</div>
+	
+	<div class="container">
+    {% if messages %}
+        {% for message in messages %}
+        	<div class='alert {% if "success" in message.tags %}alert-success{% elif "warning" in message.tags%}alert-warning{% elif "error" in message.tags %}alert-danger{% endif %} alert-dismissible' role='alert'>
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            	{% if "safe" in message.tags %}{{ message|safe }}{% else %}{{ message }}{% endif %}
+            </div>
+        {% endfor %}
+    {% endif %}
+    
+
+    {% block base %}{% endblock %}
+	{% block about %} {% endblock %}
+	{% block contact %} {% endblock %}
+	{% block form %} {% endblock %}
+	{% block subcategory %} {% endblock %}
+	{% block single %} {% endblock %}
+	{% block cart %} {% endblock %}
+	{% block content %} {% endblock %}
+
+    </div>
+	 
+	
+	      
+  
+	<div class="introSection">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4">
+				<h3>Our Info</h3>
+				<p>About Us<br>
+				Contact Us<br>
+				Privacy Policy<br>
+				Terms and Conditions<br>
+				Support Center<br>
+				</p>
+				</div>
+			
+				<div class="col-lg-4">
+				<h3>Customer Service</h3>
+				<p>
+				15 days return<br>
+				cash on delivery<br>
+				free shipping<br>
+				</p>
+				
+				</div>
+			
+				<div class="col-lg-4">
+				<h3>Find Us On</h3>
+				<p>Facebook<br>
+				blog<br>
+				</p>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+    <div class="container marketing">
+    <div id="myCarousel4" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+    <div class="carousel-inner">
+
+    <div class="item active">
+    <div class="row featurette">
+        <div class="col-md-7">
+	        <h2 class="featurette-heading">Mens Clothing <span class="text-muted">Lucky Size Store</span></h2>
+	        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        </div>
+	    <div class="col-md-5">
+	        <img src="{% static 'themes/assets/images/slide1.jpg' %}" alt="Fish and Chips">
+	    </div>
+    </div>
+    </div>
+ 
+	<div class="item">
+    <div class="row featurette">
+        <div class="col-md-5">
+        	<img src="{% static 'themes/assets/images/slide2.jpg' %}" alt="Generic placeholder image">
+        </div>
+        <div class="col-md-7">
+	        <h2 class="featurette-heading">Womens Party Wear<span class="text-muted">Designer Collection</span></h2>
+	        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        </div>
+    </div>
+    </div>
+
+	<div class="item">
+    <div class="row featurette">
+        <div class="col-md-7">
+        	<h2 class="featurette-heading">Kid's Clothing <span class="text-muted"> Discount Sale</span></h2>
+            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        </div>
+        <div class="col-md-5">
+		  	<img class="img-circle" src="{% static 'themes/assets/images/slide3.jpg' %}" alt="Generic placeholder image">
+        </div>
+    </div>
+    </div>
+
+	</div>
+    </div><!-- /.carousel -->	  
+    </div><!-- /.container -->
+    <!-- /END THE FEATURETTES -->
+
+
+      <!-- FOOTER -->
+      <footer>
+		<div class="container">
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>&copy; 2014 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+		</div>
+      </footer>
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script>
+	$(document).ready(function(){
+		{% block jquery %}{% endblock%}
+	});
+	</script>
+
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="{% static 'themes/dist/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'themes/assets/js/holder.js' %}"></script>
+
+  </body>
+</html>

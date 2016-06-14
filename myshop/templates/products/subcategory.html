@@ -1,0 +1,22 @@
+{% extends 'index.html' %}
+{% block subcategory %} 
+<div class="container marketing">
+	<h2 class="itemsTitle">{{subcategory.title}}</h2>
+	<div class='row'>
+		{% for products in product %}
+			<div class="col-lg-3">
+			{% if products.productimage_set.all %}
+	            {% for productimage in products.productimage_set.all %}
+			        <img src="{{ productimage.image.url }}" alt="{{products.title}}" style="width:150px; height:200px;"/>	
+			    {% endfor %}
+			{% endif %}
+			<center><h5>{{products.title}}</h5></center>
+			<center><h5>Original Price : Rs.<strike>{{products.price}}</strike></h5></center>
+			<center><h5>Our Price : Rs.{{products.sale_price}}</h5></center>
+			<p><a class="btn btn-default" href="#" role="button">Add to cart &raquo;</a>
+			<a class="btn btn-default" href="#" role="button">View Details &raquo;</a></p>
+			</div><!-- /.col-lg-4 -->
+		{% endfor %}
+	</div>
+</div>
+{% endblock %}
